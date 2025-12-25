@@ -40,4 +40,4 @@ jobs:
           context: .
           push: true
           # Заміни 'your-username/repo-name' на свої дані!
-          tags: Kofey0K/lab1trist:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/lab1:latest
