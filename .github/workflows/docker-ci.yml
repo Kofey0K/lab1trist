@@ -1,0 +1,43 @@
+name: Build and Publish Docker Image
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  # Лінтер (Додаткове завдання)
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Super-Linter
+        uses: github/super-linter@v5
+        env:
+          VALIDATE_HTML: true
+          VALIDATE_CSS: true
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Збірка і Пуш
+  build-and-push:
+    needs: lint 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          # Заміни 'your-username/repo-name' на свої дані!
+          tags: Kofey0K/lab1trist:latest
