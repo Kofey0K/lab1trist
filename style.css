@@ -12,7 +12,6 @@ body {
   background: white;
   padding: 2rem;
   border-radius: 8px;
-  /* Виправлено формат тіні під нові стандарти */
   box-shadow: 0 4px 6px rgb(0 0 0 / 10%);
 }
 
